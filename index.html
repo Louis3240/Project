@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stone-Skipping</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!-- 引用他人產生漣漪效果的JS -->
+    <script src="watercanvas.js"></script>
+
+    <style>
+        canvas {
+            margin: auto;
+            display: block;
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 畫布寬360高640 -->
+    <canvas id="myCanvas" width="288" height="512"></canvas>
+
+    <script>
+        //Canvas起手
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+
+        // 背景先用單一背景****
+        var grd = ctx.createLinearGradient(0, 0, 0, 640);
+        // 透明度
+        ctx.globalAlpha = 0.7;
+        grd.addColorStop(0, "blue");
+        grd.addColorStop(0.45, "#00cccc");
+        grd.addColorStop(0.9, "aqua");
+        grd.addColorStop(1, "white");
+
+        ctx.fillStyle = "aqua";
+        ctx.fillRect(0, 0, 288, 512);
+
+
+        // 石頭的屬性
+        var stone = {
+            X: 144,
+            Y: 400,
+            LowY: 400,  //最低點
+            TopY: 380,  //最高點
+            RX: 60,
+            RY: 20,
+            VX: 0,
+            VY: -1.5,  //決定石頭浮動速率
+        };
+
+        // 做一個全域變數，方便在各個函式裡使用。因為要判斷石頭落水後，減速，但是事實上是背景在動。
+        var moveSpeed = 2;
+
+        //畫個石頭
+        function drawStone(scale) {
+
+            // 畫陰影
+            ctx.beginPath();
+            ctx.globalAlpha = 0.8;
+            ctx.fillStyle = "grey";
+            ctx.ellipse(stone.X + 10, stone.Y + 10, stone.RX * (0.9 - scale), stone.RY * (0.9 - scale), 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = "grey";
+            ctx.ellipse(stone.X, stone.Y, stone.RX * (1 + scale), stone.RY * (1 + scale), 0, 0, Math.PI * 2);
+            ctx.fill();
+
+        }
+
+        //用陰影讓彈跳更逼真
+
+        //必要完成：開始遊戲/結束遊戲、加速度問題、各種量條(像是高度)、顯示介面(分數、彈跳數、距離)、噴水(碰觸水面)、是否要做可以左右移動(optional)
+
+        //非必要，但期許要做：各種顏色選色、逼真的問題(浪、空間軸的訂定)
+
+        // 石頭跳動的感覺
+        function stoneJump() {
+
+            drawStone((stone.LowY - stone.Y) * 0.2 / (stone.LowY - stone.TopY));  //依照石頭達到的高度去做比例放大
+
+            if (stone.Y < stone.TopY)
+                stone.VY = - stone.VY;
+            else if (stone.Y > stone.LowY) {
+                stone.VY = - stone.VY;
+
+                // 彈跳降速****
+                moveSpeed -= 0.25;
+                console.log(moveSpeed);
+            }
+            stone.Y += stone.VY;
+        }
+
+        // var start = setInterval(stoneJump, 1000 / 24);
+
+        // 海浪的物件
+        function wave(x, y, shape) {
+            this.X = x;
+            this.Y = y;
+            //海浪有兩種可以切換
+            if (Math.random() < 0.5)
+                this.shape = "﹌".repeat(Math.floor(Math.random() * 3 + 3))
+            else
+                this.shape = "﹋".repeat(Math.floor(Math.random() * 3 + 3))
+        }
+
+        // 用prototype共用畫WAVE
+        wave.prototype.drawWave = function () {
+            ctx.fillStyle = "black";
+            ctx.font = "35px Arial"
+            ctx.fillText(this.shape, this.X, this.Y);
+        };
+
+        waveList = [];
+
+        for (var i = 0; i < 5; i++) {
+            //海浪的水平位移也是隨機
+            waveList.push(new wave(Math.random() * 200, 100 * i));
+            waveList[i].drawWave();
+        }
+
+        function testWave() {
+
+            //讓畫面上保留隨機的波浪數(最低要為5個)
+            if (waveList.length < 5 || Math.random() < 0.005)
+                waveList.unshift(new wave(Math.random() * 200, -Math.random() * 50));
+
+            waveList.forEach(function (item, index, array) {
+                //這邊先暫定海浪移動速度是1****，將來要看石頭的移動速度!!
+                item.Y += moveSpeed;
+                item.drawWave();
+            })
+
+            if (waveList[waveList.length - 1].Y > 520) {
+                waveList.pop();
+                console.log(waveList);
+            }
+        }
+        // var start = setInterval(testWave, 1000 / 24)
+
+        // 遊戲開始函數
+        function startGame() {
+            ctx.clearRect(0, 0, 288, 512);
+            ctx.globalAlpha = 0.6;
+            ctx.fillStyle = "aqua";
+            ctx.fillRect(0, 0, 288, 512);
+
+            testWave();
+            stoneJump();
+
+            // 沒速度就結束啦~
+            if (moveSpeed < 0)
+                endGame();
+        }
+
+        var start = setInterval(startGame, 1000 / 24);
+
+
+        function endGame() {
+            clearInterval(start);
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
