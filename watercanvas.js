@@ -137,7 +137,7 @@ WaterCanvas.prototype.setBackground = function (backgroundImageUrl) {
 
     } else {
 
-        var radgrad = pointerCtx.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.height / 2);
+        var radgrad = pointerCtx.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.height / 2 +300);
         radgrad.addColorStop(0, '#4af');
         radgrad.addColorStop(1, '#000');
 
