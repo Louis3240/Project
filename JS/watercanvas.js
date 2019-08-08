@@ -137,7 +137,7 @@ WaterCanvas.prototype.setBackground = function (backgroundImageUrl) {
 
     } else {
 
-        var radgrad = pointerCtx.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.height / 2);
+        var radgrad = pointerCtx.createRadialGradient(this.width / 2, this.height / 2, 0, this.width / 2, this.height / 2, this.height / 2 +300);
         radgrad.addColorStop(0, '#4af');
         radgrad.addColorStop(1, '#000');
 
@@ -149,13 +149,13 @@ WaterCanvas.prototype.setBackground = function (backgroundImageUrl) {
         this.ctxHelp.shadowOffsetY = 0;
         this.ctxHelp.shadowBlur = 10;
 
-        this.ctxHelp.textBaseline = "top";
-        this.ctxHelp.font = 'normal 200 45px verdana';
-        this.ctxHelp.fillStyle = "white";
-        this.ctxHelp.fillText("Water Canvas", 10, (this.height / 2) - 40);
-        this.ctxHelp.font = 'normal 200 12px verdana';
-        this.ctxHelp.fillText("Move your mouse over this canvas to move the water.", 10, (this.height / 2) + 10);
-        this.ctxHelp.fillText("By Almeros 2010, See http://code.almeros.com", 10, (this.height / 2) + 30);
+        // this.ctxHelp.textBaseline = "top";
+        // this.ctxHelp.font = 'normal 200 45px verdana';
+        // this.ctxHelp.fillStyle = "white";
+        // this.ctxHelp.fillText("Water Canvas", 10, (this.height / 2) - 40);
+        // this.ctxHelp.font = 'normal 200 12px verdana';
+        // this.ctxHelp.fillText("Move your mouse over this canvas to move the water.", 10, (this.height / 2) + 10);
+        // this.ctxHelp.fillText("By Almeros 2010, See http://code.almeros.com", 10, (this.height / 2) + 30);
 
         // Get the canvas pixel data
         var imgDataIn = this.ctxHelp.getImageData(0, 0, this.width, this.height);
@@ -233,22 +233,22 @@ WaterCanvas.prototype.drawNextFrame = function () {
 
 
 
-    if (this.showStats) {
-        this.fpsCounter++;
+    // if (this.showStats) {
+    //     this.fpsCounter++;
 
 
-        this.ctx.textBaseline = "top";
-        this.ctx.font = 'normal 200 10px arial';
+    //     this.ctx.textBaseline = "top";
+    //     this.ctx.font = 'normal 200 10px arial';
 
-        this.ctx.fillStyle = "white";
-        this.ctx.fillText("FPS Canvas: " + this.getFps(), 10, 10);
-        this.ctx.fillText("FPS Water: " + this.waterModel.getFps(), 10, 20);
+    //     this.ctx.fillStyle = "white";
+    //     this.ctx.fillText("FPS Canvas: " + this.getFps(), 10, 10);
+    //     this.ctx.fillText("FPS Water: " + this.waterModel.getFps(), 10, 20);
 
-        this.ctx.shadowColor = "black";
-        this.ctx.shadowOffsetX = 0;
-        this.ctx.shadowOffsetY = 0;
-        this.ctx.shadowBlur = 2;
-    }
+    //     this.ctx.shadowColor = "black";
+    //     this.ctx.shadowOffsetX = 0;
+    //     this.ctx.shadowOffsetY = 0;
+    //     this.ctx.shadowBlur = 2;
+    // }
 
 
 

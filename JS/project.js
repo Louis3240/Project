@@ -416,7 +416,7 @@ function init() {
                 ctx.fillText("Well Done!", 144, 260);
             }
             else if (dist + bounce * 100 < 2000 && dist + bounce * 100 >= 1000) {
-                ctx.fillStyle = "#00cc00";
+                ctx.fillStyle = "#00ff00";
                 ctx.fillText("Nice", 144, 260);
             }
             else {
@@ -482,16 +482,18 @@ function init() {
 
             // 漸層量條
             ctx.globalAlpha = 1.0;
-            var lineargradient = ctx.createLinearGradient(20, 450, 268, 450);
+            var lineargradient = ctx.createLinearGradient(24, 450, 264, 450);
             lineargradient.addColorStop(0, 'white');
             lineargradient.addColorStop(0.4, 'green');
             lineargradient.addColorStop(0.7, 'yellow');
             lineargradient.addColorStop(1, 'red');
             ctx.fillStyle = lineargradient;
-            ctx.fillRect(20, 450, 235, 10);
+            ctx.fillRect(24, 450, 240, 10);
 
             //邊框
-            ctx.strokeRect(20, 450, 235, 10)
+            ctx.strokeRect(24, 450, 240, 10)
+
+            //指標
             ctx.beginPath();
             ctx.moveTo(arrow1x, arrow1y);
             ctx.lineTo(arrow1x + 20, arrow1y);
@@ -499,7 +501,7 @@ function init() {
             ctx.lineTo(arrow1x, arrow1y);
             ctx.stroke();
 
-            if (arrow1x > 220 || arrow1x < 35)
+            if (arrow1x > 244 || arrow1x < 24)
                 arrow1Direction = 1 - arrow1Direction;
 
             //不同區間不同速度
@@ -524,7 +526,7 @@ function init() {
 
             clearInterval(startArrow);
             //不同時間點點擊有不同的速度
-            if (arrow1x <= 35 + (220 - 35) * 0.2) {
+            if (arrow1x <= 24 + (264 - 24) * 0.2) {
                 moveSpeed = 2;
                 stone.VZ = 3;
                 $('#clickMsg').css("color", "white");
@@ -532,7 +534,7 @@ function init() {
                 $("#clickMsg").css("display", "block");
                 document.getElementById("LightWind").play();
             }
-            else if (arrow1x > 35 + (220 - 35) * 0.2 && arrow1x <= 35 + (220 - 35) * 0.55) {
+            else if (arrow1x > 24 + (264 - 24) * 0.2 && arrow1x <= 24 + (264 - 24) * 0.55) {
                 moveSpeed = 3;
                 stone.VZ = 3.5;
                 $('#clickMsg').css("color", "green");
@@ -540,7 +542,7 @@ function init() {
                 $("#clickMsg").css("display", "block");
                 document.getElementById("LightWind").play();
             }
-            else if (arrow1x > 35 + (220 - 35) * 0.55 && arrow1x <= 35 + (220 - 35) * 0.85) {
+            else if (arrow1x > 24 + (264 - 24) * 0.55 && arrow1x <= 24 + (264 - 24) * 0.85) {
                 moveSpeed = 5;
                 stone.VZ = 4;
                 $('#clickMsg').css("color", "yellow");
