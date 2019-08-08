@@ -396,32 +396,32 @@ function init() {
             ctx.textBaseline = "center";
 
             //距離
-            ctx.font = "20px Georgia"
+            ctx.font = "30px Georgia"
             ctx.fillText("Distance          :" + dist, 20, 140);
 
             //彈跳數
-            ctx.fillText("Bounce(×100):" + bounce * 100, 20, 170);
+            ctx.fillText("Bounce(×100):" + bounce * 100, 20, 200);
             //總和
-            ctx.fillText("Total                 :" + eval(dist + bounce * 100), 20, 200);
+            ctx.fillText("Total                 :" + eval(dist + bounce * 100), 20, 260);
 
             //分數標題
             ctx.textAlign = "center";
-            ctx.font = "30px Impact"
-            ctx.fillText("Score", 144, 100);
+            ctx.font = "35px Georgia"
+            ctx.fillText("Score", 144, 80);
 
             //根據分數顯示文字
-            ctx.font = "45px Cursive"
+            ctx.font = "45px Georgia"
             if (dist + bounce * 100 >= 2000) {
                 ctx.fillStyle = "#ff471a";
-                ctx.fillText("Well Done!", 144, 260);
+                ctx.fillText("Well Done!", 144, 420);
             }
             else if (dist + bounce * 100 < 2000 && dist + bounce * 100 >= 1000) {
                 ctx.fillStyle = "#00ff00";
-                ctx.fillText("Nice", 144, 260);
+                ctx.fillText("Nice", 144, 420);
             }
             else {
                 ctx.fillStyle = "white";
-                ctx.fillText("Almost there", 144, 260);
+                ctx.fillText("Almost there", 144, 420);
             }
 
 
