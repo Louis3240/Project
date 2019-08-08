@@ -53,7 +53,7 @@ function init() {
         TemperY: 280,   //依照點擊改動最高點的暫存
         ClickFlag: true,  //是否可以點擊的判斷
         Accelerate: 1,   //最佳時間點點可減緩減速
-        RX: 60,
+        RX: 30,
         RY: 20,
         VX: 0,
         VY: 0,  //決定石頭浮動速率
@@ -259,7 +259,7 @@ function init() {
                         document.getElementById("ClickSound").play();
                         if (stone.Y > stone.LowY - (stone.LowY - stone.TopY) * 0.3) {
                             //完美點擊:不減高度、減緩降速
-                            stone.TemperY = stone.LowY - (stone.LowY - stone.TopY) * 0.95;
+                            stone.TemperY = stone.LowY - (stone.LowY - stone.TopY) * 0.9;
                             stone.Accelerate = 1.15;
                             $("#clickMsg2").css("color", "red")
                             $("#clickMsg2").text("Great!!");
